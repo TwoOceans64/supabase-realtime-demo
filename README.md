@@ -53,9 +53,20 @@ The repo contains:
 ## Status
 ✅ Fully working end‑to‑end demo after pivot.  
 📌 Meets the new spec requirements.  
+
+## Screenshots
+
+### Checked-in List
+![Checked In List](checked-in-list.png)
+
+### Pending List
+![Pending List](pending-list.png)
+
+### All Attendees List
+![All List](all-list.png)
+
+### Search Function
+![Search](search.png)
 ```
 
 ---
-
-
-```
