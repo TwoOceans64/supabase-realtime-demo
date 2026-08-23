@@ -1,16 +1,57 @@
-# React + Vite
+# Supabase Realtime Demo – Meridian Pivot Project
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## Overview
+This project is a solo recon build demonstrating **Supabase Realtime** with a **React + Vite frontend**. It was developed as part of the Meridian Pivot assignments, where the spec shifted from a polling model to a webhook‑driven architecture. The final deliverable shows attendees being checked in live, with database updates broadcast to the UI in real time.
 
-Currently, two official plugins are available:
+## Features
+- **Webhook Integration:** Attendee updates are pushed via webhooks instead of polled API calls.
+- **Supabase Database:** Attendees table uses `gen_random_uuid()` for unique IDs.
+- **Realtime Listener:** React frontend subscribes to Supabase changes and confirms check‑ins live.
+- **Publisher/Consumer Scripts:** Simulate attendee check‑in events and forward payloads to the server.
+- **Error Handling:** Logs invalid UUIDs, webhook failures, and database mismatches for debugging.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## Pivot Changes
+- **Original Spec:** Polling API every 5 minutes to refresh attendee status.
+- **Pivot Spec:** Event‑driven webhook model for immediate updates.
+- **Why:** Polling was inefficient and redundant; pivot required real‑time responsiveness.
 
-## React Compiler
+## Setup
+1. Clone the repo:
+   ```bash
+   git clone https://github.com/TwoOceans64/supabase-realtime-demo.git
+   cd supabase-realtime-demo
+   ```
+2. Install dependencies:
+   ```bash
+   npm install
+   ```
+3. Start the frontend:
+   ```bash
+   npm run dev
+   ```
+4. Run publisher/consumer scripts to simulate check‑ins:
+   ```bash
+   node publisher.js <attendee-uuid>
+   node consumer.js
+   ```
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## Demo Flow
+1. **Publisher** sends an attendee UUID event.  
+2. **Consumer** forwards the payload to the webhook.  
+3. **Server** validates and updates the Supabase attendees table.  
+4. **Realtime listener** in React receives the change event.  
+5. UI updates with “Attendee checked in” confirmation.  
 
-## Expanding the ESLint configuration
+## Lessons Learned
+- Placeholders like `<attendee-uuid>` must be replaced with actual values.
+- UUID mismatches highlight the importance of aligning with database‑generated IDs.
+- Payload validation is critical to prevent silent webhook failures.
+- Realtime listeners depend on successful backend updates.
+- Documenting blockers and fixes accelerates recovery and avoids repeated mistakes.
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## Status
+✅ Fully working end‑to‑end demo after pivot.  
+📌 Meets the new spec requirements.  
+```
+
+---
